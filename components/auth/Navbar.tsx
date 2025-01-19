@@ -11,7 +11,7 @@ const Navbar = () => {
             <ul className="hidden md:flex space-x-4 list-none">
                 <li>
                     <Link href='/login' className="hover:text-gray-400">
-                    Login
+                    Login into account
                     </Link>
                 </li>
                 <li>
