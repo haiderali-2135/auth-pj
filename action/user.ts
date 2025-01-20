@@ -1,5 +1,4 @@
 "use server";
-
 import connectDB from "@/lib/db";
 import { User } from "@/models/User";
 import { redirect } from "next/navigation";
@@ -7,9 +6,13 @@ import { hash } from "bcryptjs";
 import { CredentialsSignin } from "next-auth";
 import { signIn } from "@/auth";
 
-const login = async (formData: FormData): Promise<void> => {
+const login = async (formData: FormData): Promise<void> =>{
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+
+  if (!email || !password) {
+    throw new Error("Please fill all fields");
+  }
 
   try {
     await signIn("credentials", {
@@ -20,6 +23,7 @@ const login = async (formData: FormData): Promise<void> => {
     });
   } catch (error) {
     const someError = error as CredentialsSignin;
+    redirect('/login')
   }
   redirect("/");
 };
